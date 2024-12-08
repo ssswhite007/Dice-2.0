@@ -95,20 +95,20 @@ var SettingMode = (function () {
 
   var initialize = async function () {
     
-    const numberInputs = document.querySelectorAll('#throw-result input[type="number"]');
+    // const numberInputs = document.querySelectorAll('#throw-result input[type="number"]');
 
-    numberInputs.forEach((input, index) => {
-        input.value = config.desiredResult[index]; // Set each input to its corresponding value
-    });
+    // numberInputs.forEach((input, index) => {
+    //     input.value = config.desiredResult[index]; // Set each input to its corresponding value
+    // });
     
-    initialRender.init(0, 0, 0, 0, 0);
+    // initialRender.init(0, 0, 0, 0, 0);
     resetDice(simpleDice.cannonDice.diceArray);
 
-    document.querySelector('input[name="dice1"][value="DefDice"]').checked = true;
-    document.querySelector('input[name="dice2"][value="DefDice"]').checked = true;
-    document.querySelector('input[name="dice3"][value="DefDice"]').checked = true;
-    document.querySelector('input[name="dice4"][value="DefDice"]').checked = true;
-    document.querySelector('input[name="dice5"][value="DefDice"]').checked = true;
+    // document.querySelector('input[name="dice1"][value="DefDice"]').checked = true;
+    // document.querySelector('input[name="dice2"][value="DefDice"]').checked = true;
+    // document.querySelector('input[name="dice3"][value="DefDice"]').checked = true;
+    // document.querySelector('input[name="dice4"][value="DefDice"]').checked = true;
+    // document.querySelector('input[name="dice5"][value="DefDice"]').checked = true;
 
   }
 
