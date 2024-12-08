@@ -1,0 +1,40 @@
+{
+	"Alise-4": [],
+    "dices": [
+		{
+			"diceId": 1,
+            "face": 2
+        },
+		{
+			"diceId": 2,
+            "face": 4
+        },
+		{
+			"diceId": 3,
+            "face": 6
+        },
+		{
+			"diceId": 5,
+            "face": 3
+        }
+    ],
+    "base": [
+		{
+			"price": 5,
+			"dices":[
+				{
+					"diceId": 4,
+					"face": 5,
+					"isMoved": true
+				}
+			]
+		}
+    ],
+    "params": {
+        "turnNumber": 3,
+        "sessionScore": 0,
+        "score": 0,
+        "mustPlay": false,
+		"nextPlayer": false
+    }
+}

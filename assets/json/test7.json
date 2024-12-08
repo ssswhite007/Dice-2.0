@@ -1,0 +1,36 @@
+{
+	"Piter-3": [],
+    "dices": [
+		{
+			"diceId": 1,
+            "face": 6
+        },
+		{
+			"diceId": 2,
+            "face": 3
+        },
+		{
+			"diceId": 3,
+            "face": 2
+        },
+		{
+			"diceId": 4,
+            "face": 4
+        },
+		{
+			"diceId": 5,
+            "face": 6
+        }
+    ],
+    "base": [
+    ],
+    "params": {
+        "turnNumber": 3,
+        "sessionScore": 0,
+        "score": 0,
+        "mustPlay": false,
+		"nextPlayer": true
+    }
+}
+
+

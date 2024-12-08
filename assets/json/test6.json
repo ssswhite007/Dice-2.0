@@ -1,0 +1,49 @@
+{
+	"Piter-2": [],
+    "dices": [
+    ],
+    "base": [
+		{
+			"price": 80,
+			"dices":[
+				{
+					"diceId": 1,
+					"face": 4,
+					"isMoved": false
+				},
+				{
+					"diceId": 2,
+					"face": 4,
+					"isMoved": false
+				},
+				{
+					"diceId": 4,
+					"face": 4,
+					"isMoved": false
+				},
+				{
+					"diceId": 5,
+					"face": 4,
+					"isMoved": false
+				}
+			]
+		},
+		{
+			"price": 5,
+			"dices":[
+				{
+					"diceId": 3,
+					"face": 5,
+					"isMoved": true
+				}
+			]
+		}
+    ],
+    "params": {
+        "turnNumber": 2,
+        "sessionScore": 85,
+        "score": 85,
+        "mustPlay": true,
+		"nextPlayer": false
+    }
+}
