@@ -84,50 +84,38 @@ export function CannonDice({renderer, scene, camera, diceModel, config}) {
         })
     }
 
-    let createFloor=()=>{
+    let createFloor = () => {
         for (let i = 0; i < 5; i++) {
-
             const body = new CANNON.Body({
                 type: CANNON.Body.STATIC,
                 shape: new CANNON.Plane(),
             });
             simulation.addBody(body);
-
+    
             let mesh;
             if (i === 0) {
-                /*
-                mesh = new THREE.Mesh(new THREE.PlaneGeometry(100,100,100,100),new THREE.ShadowMaterial({
-                    opacity: .1
-                }))
-                scene.add(mesh);
-                mesh.receiveShadow = true;
-*/
-
-                
-                mesh = new THREE.Mesh(new THREE.PlaneGeometry(100,100,100,100),new THREE.MeshStandardMaterial({
-                   // opacity: .1,
-                   //color:'#800',
-                    roughness:config.floorRoughness || .9,
-                    metalnesss:config.floorMetalness || 0,
-                    map:new THREE.TextureLoader().load(config.floorTexture || './assets/paper.jpg')
-                }))
-                mesh.material.map.colorSpace = 'srgb'
+                mesh = new THREE.Mesh(new THREE.PlaneGeometry(100, 100, 100, 100), new THREE.MeshStandardMaterial({
+                    roughness: 0.5, // Test with a fixed value
+                    metalness: 0.1, // Test with a fixed value
+                    color: '#ffffff', // Use a bright color temporarily to test
+                    map: new THREE.TextureLoader().load(config.floorTexture || './assets/paper.jpg')
+                }));
+                mesh.material.map.colorSpace = 'srgb';
                 let repeat = config.floorRepeat || 4;
-                mesh.material.map.repeat.set(repeat,repeat)
-                mesh.material.map.wrapS=mesh.material.map.wrapT= THREE.RepeatWrapping;
+                mesh.material.map.repeat.set(repeat, repeat);
+                mesh.material.map.wrapS = mesh.material.map.wrapT = THREE.RepeatWrapping;
                 scene.add(mesh);
-                mesh.receiveShadow = true;
-                
+                mesh.receiveShadow = true; // Ensure the floor receives shadows
             }
-
+    
             floorPlanesArray.push({
                 body,
                 mesh
-            })
+            });
         }
-
+    
         floorPositionUpdate();
-    }
+    };
 
     let floorPositionUpdate=()=>{
         floorPlanesArray.forEach( (f, fIdx) => {

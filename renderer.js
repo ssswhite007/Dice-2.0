@@ -3,6 +3,10 @@ import {OrbitControls} from "three/addons/controls/OrbitControls.js";
 import {GUI} from 'three/addons/libs/lil-gui.module.min.js';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js'
 import {PostProcessing} from "./post-processing.js"
+import { FXAAShader } from 'three/addons/postprocessing/FXAAShader.js';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
 
 export function Renderer(config) {
     //This is all the basic boilerplate to
@@ -35,19 +39,21 @@ export function Renderer(config) {
 
    
 
-    let directionalLight = new THREE.DirectionalLight('rgb(245,212,55)',2);
+    let directionalLight = new THREE.DirectionalLight('rgb(255, 255, 255)', 3);
+    directionalLight.position.set(12, 30, 5);
+    directionalLight.target.position.set(0, 0, 0);
+    directionalLight.target.updateMatrixWorld();
     scene.add(directionalLight);
     directionalLight.shadow.camera.left *= 5;
     directionalLight.shadow.camera.right *= 5;
     directionalLight.shadow.camera.top *= 5;
     directionalLight.shadow.camera.bottom *= 5;
     directionalLight.shadow.camera.updateProjectionMatrix();
-    directionalLight.shadow.bias = -.001;
+    directionalLight.shadow.bias = -.005;
 
     directionalLight.castShadow = true;
-    directionalLight.position.set(1.5, 5, 1.5);
 
-    let ambientLight = new THREE.AmbientLight('white',1.5);
+    let ambientLight = new THREE.AmbientLight('white',2);
     scene.add(ambientLight);
 
     let controls = new OrbitControls(camera,renderer.domElement);
@@ -63,12 +69,13 @@ export function Renderer(config) {
     }
 
     let postProcessing = new PostProcessing(renderer,scene,camera,config)
+    let composer = new EffectComposer(renderer);
 
     let handleResize = () => {
-        camera.aspect = window.innerWidth / window.innerHeight
-        camera.updateProjectionMatrix()
-        renderer.setSize(window.innerWidth, window.innerHeight)
-        postProcessing.setSize(window.innerWidth, window.innerHeight)
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        composer.setSize(window.innerWidth, window.innerHeight);
     }
     handleResize();
     window.addEventListener('resize', handleResize, false)
@@ -77,17 +84,23 @@ export function Renderer(config) {
     const pointer = new THREE.Vector2();
     let clock = new THREE.Clock();
 
+    let renderPass = new RenderPass(scene, camera);
+    composer.addPass(renderPass);
+
+    let fxaaPass = new ShaderPass(FXAAShader);
+    fxaaPass.uniforms['resolution'].value.set(1 / window.innerWidth, 1 / window.innerHeight);
+    composer.addPass(fxaaPass);
+
     renderer.setAnimationLoop( () => {
         raycaster.setFromCamera(pointer, camera);
         let dt = clock.getDelta();
         events.frame && events.frame(dt);
         controls.update(camera);
-        //renderer.render(scene, camera);
-        postProcessing.render(scene,camera);
+        composer.render();
     }
     );
 
-    scene.background = new THREE.Color('#eee')
+    scene.background = new THREE.Color('#eeeeee')
     const gui = new GUI();
     let glbLoader = new GLTFLoader();
 
