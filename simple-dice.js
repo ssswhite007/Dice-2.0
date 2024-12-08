@@ -323,6 +323,13 @@ export async function SimpleDice({THREE, renderer, scene, camera, raycasting, gl
         let diceGLBNew = await glbLoader.loadAsync(diceUrlNew);
         let dieNew = diceGLBNew.scene;
         dieNew.scale.multiplyScalar(config.diceScale)
+
+        dieNew.traverse((child) => {
+            if (child.isMesh) {
+                child.castShadow = true; // Enable shadow casting
+                child.receiveShadow = true; // Enable shadow receiving
+            }
+        });
         
         cannonDice.diceArray[cubeId].mesh.remove(cannonDice.diceArray[cubeId].mesh.children[0])
         cannonDice.diceArray[cubeId].mesh.add(dieNew);
